@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require("axios");
@@ -27,10 +28,10 @@ app.post("/", function(req, res) {
 		]
 	};
 	var jsonData = JSON.stringify(data);
-	var url = "https://us19.api.mailchimp.com/3.0/lists/c0f97ce264";
+	var url = process.env.MAILCHIMP_URL;
 	var options = {
 		method: "POST",
-		auth: "devesh:431bd1a7cb1ff09da326f8e5a6e060c1-us19"
+		auth: process.env.MAILCHIMP_APIKEY
 	};
 	const request = https.request(url, options, function(response) {
 		if (response.statusCode == 200) {
@@ -45,8 +46,3 @@ app.post("/", function(req, res) {
 app.listen(3000, function(req, res) {
 	console.log("server started on port 3000");
 });
-
-// API Key
-// 431bd1a7cb1ff09da326f8e5a6e060c1-us19
-// List Id
-// c0f97ce264
